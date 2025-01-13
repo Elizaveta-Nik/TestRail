@@ -4,15 +4,14 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 @Log4j2
 public class TestRunsAndResultsPage {
 
-    private static final String ADD_TEST_RUN_NAVIGATION_BUTTON = "#navigation-runs-add", //через вкладку тест ран
-            ADD_FIRST_TEST_RUN_BUTTON = "[data-testid='runAddButton']",//через вкладку тест ран
+    private static final String ADD_TEST_RUN_NAVIGATION_BUTTON = "#navigation-runs-add",
+            ADD_FIRST_TEST_RUN_BUTTON = "[data-testid='runAddButton']",
             NAME = "#name";
 
     public TestRunsAndResultsPage openPage(String projectNumber) {

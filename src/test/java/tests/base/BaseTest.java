@@ -5,8 +5,11 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import pages.*;
 import utils.PropertyReader;
 
@@ -17,7 +20,8 @@ public class BaseTest {
 
     protected String user = System.getProperty("user", PropertyReader.getProperty("user"));
     protected String password = System.getProperty("password", PropertyReader.getProperty("password"));
-    protected String apiKey = System.getProperty("apiKey", PropertyReader.getProperty("apiKey"));;
+    protected String apiKey = System.getProperty("apiKey", PropertyReader.getProperty("apiKey"));
+    protected String baseURL = System.getProperty("baseURL", PropertyReader.getProperty("baseURL"));
 
     public LoginPage loginPage;
     public ProjectPage projectPage;
@@ -27,17 +31,25 @@ public class BaseTest {
     public ReportsPage reportsPage;
     public TestRunsAndResultsPage testRunsAndResultsPage;
 
+    @Parameters("browser")
     @BeforeMethod
-    public void setup() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");
-        Configuration.browserCapabilities = options;
+    public void setup(@Optional("chrome") String browser) {
+        if (browser.equalsIgnoreCase("chrome")) {
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--start-maximized");
+            Configuration.browserCapabilities = options;
+            Configuration.browser = "chrome";
+        } else if (browser.equalsIgnoreCase("firefox")) {
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("--start-maximized");
+            Configuration.browserCapabilities = options;
+            Configuration.browser = "firefox";
+        }
 
-        Configuration.browser = "chrome";//выбор браузера по умолчанию
-        Configuration.headless = false;//или true - для гитхаб экшен!!
-        Configuration.timeout = 20000;//ожидание любых условий
-        Configuration.clickViaJs = true;//клики с помощью JS
-        Configuration.baseUrl = "https://meyenem698.testrail.io/index.php?/";
+        Configuration.headless = false; // или true - для гитхаб экшен!!
+        Configuration.timeout = 20000; // ожидание любых условий
+        Configuration.clickViaJs = true; // клики с помощью JS
+        Configuration.baseUrl = baseURL;
 
         loginPage = new LoginPage();
         dashboardPage = new DashboardPage();
