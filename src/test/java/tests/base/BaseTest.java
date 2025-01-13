@@ -2,6 +2,7 @@ package tests.base;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Description;
 import io.qameta.allure.selenide.AllureSelenide;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -33,22 +34,31 @@ public class BaseTest {
 
     @Parameters("browser")
     @BeforeMethod
+    @Description("Open browser")
     public void setup(@Optional("chrome") String browser) {
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--start-maximized");
-            Configuration.browserCapabilities = options;
             Configuration.browser = "chrome";
+            Configuration.browserSize = "1920x1080";
+            Configuration.headless = false;// или true - для гитхаб экшен!!
+            Configuration.timeout = 20000;
+            Configuration.clickViaJs = true;
+            Configuration.browserCapabilities = options;
         } else if (browser.equalsIgnoreCase("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
             options.addArguments("--start-maximized");
             Configuration.browserCapabilities = options;
             Configuration.browser = "firefox";
+            Configuration.browserSize = "1920x1080";
+            Configuration.headless = false;// или true - для гитхаб экшен!!
+            Configuration.timeout = 20000;
+            Configuration.clickViaJs = true;
         }
 
-        Configuration.headless = false; // или true - для гитхаб экшен!!
-        Configuration.timeout = 20000; // ожидание любых условий
-        Configuration.clickViaJs = true; // клики с помощью JS
+//        Configuration.headless = false; // или true - для гитхаб экшен!!
+//        Configuration.timeout = 20000; // ожидание любых условий
+//        Configuration.clickViaJs = true; // клики с помощью JS
         Configuration.baseUrl = baseURL;
 
         loginPage = new LoginPage();
@@ -66,6 +76,7 @@ public class BaseTest {
     }
 
     @AfterMethod(alwaysRun = true)
+    @Description("Close browser")
     public void close() {
         closeWebDriver();
     }
