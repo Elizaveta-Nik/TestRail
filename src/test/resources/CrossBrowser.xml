@@ -9,14 +9,15 @@
     <test name="Chrome">
         <classes>
             <class name="tests.ui.ProjectTest"/>
+            <class name="tests.api.TestCasesTest"/>
             <class name="tests.ui.MilestonesTest"/>
-            <parameter name="browser" value="firefox"/>
+            <class name="tests.ui.ReportsTest"/>
+            <parameter name="browser" value="chrome"/>
         </classes>
     </test>
     <test name="FireFox">
         <classes>
-            <class name="tests.ui.ReportsTest"/>
-            <class name="tests.api.TestCasesTest"/>
+            <class name="tests.ui.LoginTest"/>
             <parameter name="browser" value="firefox"/>
         </classes>
     </test>

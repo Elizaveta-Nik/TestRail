@@ -31,5 +31,3 @@ public class ProjectData {
                     "}\n",
             webhookEvent = "plan_updated";
 }
-
-

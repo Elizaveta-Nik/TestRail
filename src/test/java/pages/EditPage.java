@@ -7,7 +7,8 @@ import org.openqa.selenium.By;
 import wrappers.CheckboxWrapper;
 import wrappers.JavaScriptExecutorWrapper;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.clickable;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -49,7 +50,6 @@ public class EditPage {
             WARNING = "#warning_content",
             CONFIRM = "[data-testid='confirmProjectsAllowChanges']",
             DELETE_WEBHOOK = "#admin-integration-form-delete",
-            ERROR_MESSAGE = "#webhookErrors",
             MESSAGE_SUCCESS_DIV_BOX = "[data-testid='messageSuccessDivBox']",
             ENTER_TEMPLATE = "Enter a template",
             ACCEPT = "#accept",

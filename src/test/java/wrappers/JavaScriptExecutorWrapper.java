@@ -1,7 +1,8 @@
 package wrappers;
 
-import static com.codeborne.selenide.Selenide.executeJavaScript;
 import com.codeborne.selenide.SelenideElement;
+
+import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class JavaScriptExecutorWrapper {
 

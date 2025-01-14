@@ -2,47 +2,49 @@ package tests.ui;
 
 import dto.ProjectData;
 import dto.WebhookData;
-import io.qameta.allure.Description;
+import io.qameta.allure.*;
 import lombok.extern.log4j.Log4j2;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import tests.base.BaseTest;
-import utils.TestDataFactory;
+
+import static utils.TestDataFactory.createProjectData;
+import static utils.TestDataFactory.createWebhookData;
 
 @Log4j2
+@Epic("Project Management")
 public class ProjectTest extends BaseTest {
 
-    SoftAssert softAssert = new SoftAssert();
-
-    @Test(description = "Verify project creation")
+    @Owner("Elizaveta Nikolaenya")
+    @Feature("Project Creation")
+    @Test(description = "Verify project creation", priority = 1)
+    @Severity(SeverityLevel.MINOR)
     @Description("Creating a new project with specified parameters and verifying the successful completion of the operation.")
     public void checkCreateProject() {
-        SoftAssert softAssert = new SoftAssert();
-
         loginPage.openPage()
                 .login(user, password);
         dashboardPage.openPage()
                 .waitTillOpened();
         projectPage.createProject("Project - test", "1");
-        // выбор репозитория 1-2-3
         String actualMessage = projectPage.getCreationMessage();
-        softAssert.assertTrue(actualMessage.equals("Congratulations! You have created your first project") ||
+        Assert.assertTrue(actualMessage.equals("Congratulations! You have created your first project") ||
                         actualMessage.equals("Successfully added the new project."),
                 "Unexpected creation message: " + actualMessage);
-        softAssert.assertAll();
     }
 
-    @Test(description = "Verify project editing")
+    @Owner("Elizaveta Nikolaenya")
+    @Feature("Project Editing")
+    @Test(description = "Verify project editing", priority = 2)
+    @Severity(SeverityLevel.CRITICAL)
     @Description("Editing an existing project with specified parameters and verifying the successful completion of the operation.")
     public void checkEditProject() {
-        ProjectData projectData = TestDataFactory.createProjectData();
-        WebhookData webhookData = TestDataFactory.createWebhookData(projectData);
-
+        ProjectData projectData = createProjectData();
+        WebhookData webhookData = createWebhookData(projectData);
         loginPage.openPage()
                 .login(user, password);
         dashboardPage.openPage()
                 .waitTillOpened();
-        projectPage.openPage("30")
+        projectPage.openPage("36")
                 .clickEditButton();
         editPage.access(projectData.getUser(), projectData.getAccess())
                 .defect(projectData.getDefectUrl(), projectData.getDefectUrl(), "GitHub")
@@ -52,27 +54,26 @@ public class ProjectTest extends BaseTest {
                 .addWebhook(webhookData)
                 .saveWebhook()
                 .saveProject();
-
         String actualMessage = editPage.getUpdatedProject();
-        softAssert.assertEquals(actualMessage, "Successfully updated the project.");
-        softAssert.assertAll();
-
+        Assert.assertEquals(actualMessage, "Successfully updated the project.");
     }
 
-    @Test(description = "Delete webhook", dependsOnMethods = "checkEditProject" )
+    @Owner("Elizaveta Nikolaenya")
+    @Feature("Webhook Management")
+    @Test(description = "Delete webhook", priority = 3, dependsOnMethods = "checkEditProject")
+    @Severity(SeverityLevel.MINOR)
     @Description("Deleting a webhook")
+    @Flaky
     public void checkDeleteWebhook() {
         loginPage.openPage()
                 .login(user, password);
         dashboardPage.openPage()
                 .waitTillOpened();
-        projectPage.openPage("14")
+        projectPage.openPage("36")
                 .clickEditButton();
         editPage.clickWebhookButton()
                 .deleteWebhookButton();
-
         boolean isWebhookPresent = editPage.isWebhookPresent("https://github.com/your-repo/issues/%id%");
-        softAssert.assertFalse(isWebhookPresent, "Webhook should be deleted.");
-        softAssert.assertAll();
+        Assert.assertFalse(isWebhookPresent, "Webhook should be deleted.");
     }
 }

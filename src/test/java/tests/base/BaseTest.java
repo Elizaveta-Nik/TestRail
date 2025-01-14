@@ -19,11 +19,6 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 @Log4j2
 public class BaseTest {
 
-    protected String user = System.getProperty("user", PropertyReader.getProperty("user"));
-    protected String password = System.getProperty("password", PropertyReader.getProperty("password"));
-    protected String apiKey = System.getProperty("apiKey", PropertyReader.getProperty("apiKey"));
-    protected String baseURL = System.getProperty("baseURL", PropertyReader.getProperty("baseURL"));
-
     public LoginPage loginPage;
     public ProjectPage projectPage;
     public DashboardPage dashboardPage;
@@ -31,11 +26,17 @@ public class BaseTest {
     public MilestonesPage milestonesPage;
     public ReportsPage reportsPage;
     public TestRunsAndResultsPage testRunsAndResultsPage;
+    protected String user = System.getProperty("user", PropertyReader.getProperty("user"));
+    protected String password = System.getProperty("password", PropertyReader.getProperty("password"));
+    protected String apiKey = System.getProperty("apiKey", PropertyReader.getProperty("apiKey"));
+    protected String baseURL = System.getProperty("baseURL", PropertyReader.getProperty("baseURL"));
+    protected String baseUrlAPI = System.getProperty("baseUrlAPI", PropertyReader.getProperty("baseUrlAPI"));
 
     @Parameters("browser")
     @BeforeMethod
     @Description("Open browser")
     public void setup(@Optional("chrome") String browser) {
+
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--start-maximized");
@@ -56,11 +57,7 @@ public class BaseTest {
             Configuration.clickViaJs = true;
         }
 
-//        Configuration.headless = false; // или true - для гитхаб экшен!!
-//        Configuration.timeout = 20000; // ожидание любых условий
-//        Configuration.clickViaJs = true; // клики с помощью JS
         Configuration.baseUrl = baseURL;
-
         loginPage = new LoginPage();
         dashboardPage = new DashboardPage();
         projectPage = new ProjectPage();
@@ -68,7 +65,6 @@ public class BaseTest {
         milestonesPage = new MilestonesPage();
         reportsPage = new ReportsPage();
         testRunsAndResultsPage = new TestRunsAndResultsPage();
-
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true)
                 .savePageSource(true)
