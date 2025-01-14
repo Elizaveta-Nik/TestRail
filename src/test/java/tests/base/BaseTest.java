@@ -26,6 +26,7 @@ public class BaseTest {
     public MilestonesPage milestonesPage;
     public ReportsPage reportsPage;
     public TestRunsAndResultsPage testRunsAndResultsPage;
+
     protected String user = System.getProperty("user", PropertyReader.getProperty("user"));
     protected String password = System.getProperty("password", PropertyReader.getProperty("password"));
     protected String apiKey = System.getProperty("apiKey", PropertyReader.getProperty("apiKey"));
