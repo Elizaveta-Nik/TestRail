@@ -19,6 +19,14 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      USER: ${{secrets.USER}}
+      PASSWORD: ${{secrets.PASSWORD}}
+      BASEURL: ${{secrets.SD_baseURL}}
+      API_KEY: ${{secrets.API_KEY}}
+      BASE_URL: ${{secrets.BASE_URL}}
+      BASE_URL_API: ${{secrets.BASE_URL_API}}
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -28,4 +36,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Run tests
-      run: mvn clean test
+      run: mvn clean test -DsuiteXmlFile='src/test/resources/CrossBrowser.xml' -Duser=$USER -Dpassword=$PASSWORD -DapiKey=$API_KEY -DbaseURL=$BASE_URL -DbaseUrlAPI=$BASE_URL_API
