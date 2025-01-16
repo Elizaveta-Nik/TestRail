@@ -43,7 +43,7 @@ public class BaseTest {
             options.addArguments("--start-maximized");
             Configuration.browser = "chrome";
             Configuration.browserSize = "1920x1080";
-            Configuration.headless = false;
+            Configuration.headless = true;
             Configuration.timeout = 20000;
             Configuration.clickViaJs = true;
             Configuration.browserCapabilities = options;
@@ -53,7 +53,7 @@ public class BaseTest {
             Configuration.browserCapabilities = options;
             Configuration.browser = "firefox";
             Configuration.browserSize = "1920x1080";
-            Configuration.headless = false;
+            Configuration.headless = true;
             Configuration.timeout = 20000;
             Configuration.clickViaJs = true;
         }
