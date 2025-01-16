@@ -23,4 +23,8 @@ public class TestCaseData {
                 " ]\n" +
                 "}";
     }
+
+    public static String getUpdateTestCase() {
+        return "{ \"priority_id\": 1, \"estimate\": \"5m\" }";
+    }
 }

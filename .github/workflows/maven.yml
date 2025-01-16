@@ -10,7 +10,6 @@ name: Test Runner
 
 on:
   push:
-    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 

@@ -20,7 +20,7 @@ public class MilestonesTest extends BaseTest {
         loginPage.openPage()
                 .login(user, password);
         dashboardPage.waitTillOpened();
-        milestonesPage.openPage("36")
+        milestonesPage.openPage("41")
                 .addMilestone()
                 .setMilestoneDetails("Test1", "TEST", "Qwer")
                 .addDescription("Here’s an inline link to  [Google](https://www.google.com/)")
@@ -41,7 +41,7 @@ public class MilestonesTest extends BaseTest {
         loginPage.openPage()
                 .login(user, password);
         dashboardPage.waitTillOpened();
-        milestonesPage.openPage("36")
+        milestonesPage.openPage("41")
                 .addMilestone()
                 .setMilestoneDetails("Test", "TEST", "Qwer")
                 .selectImage()

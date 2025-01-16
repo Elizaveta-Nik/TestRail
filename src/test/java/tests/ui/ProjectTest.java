@@ -44,7 +44,7 @@ public class ProjectTest extends BaseTest {
                 .login(user, password);
         dashboardPage.openPage()
                 .waitTillOpened();
-        projectPage.openPage("36")
+        projectPage.openPage("41")
                 .clickEditButton();
         editPage.access(projectData.getUser(), projectData.getAccess())
                 .defect(projectData.getDefectUrl(), projectData.getDefectUrl(), "GitHub")
@@ -69,7 +69,7 @@ public class ProjectTest extends BaseTest {
                 .login(user, password);
         dashboardPage.openPage()
                 .waitTillOpened();
-        projectPage.openPage("36")
+        projectPage.openPage("41")
                 .clickEditButton();
         editPage.clickWebhookButton()
                 .deleteWebhookButton();

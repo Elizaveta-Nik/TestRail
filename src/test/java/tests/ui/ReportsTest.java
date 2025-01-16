@@ -21,7 +21,7 @@ public class ReportsTest extends BaseTest {
         loginPage.openPage()
                 .login(user, password);
         dashboardPage.waitTillOpened();
-        reportsPage.openPage("37")
+        reportsPage.openPage("41")
                 .createNewReport(reportData.getReportName())
                 .addDescription(reportData.getReportDescription())
                 .selectGroupTheChangesBy(reportData.getGroupBy())
